@@ -26,5 +26,10 @@ module "database" {
 
 module "autoscaling" {
   source = "./modules/autoscaling"
+
+  project   = local.project
+  vpc       = module.networking.vpc
+  sg        = module.networking.sg
+  db_config = module.database.config
 }
 

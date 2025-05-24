@@ -58,6 +58,7 @@ resource "aws_autoscaling_group" "web" {
   min_size            = 1
   max_size            = 3
   vpc_zone_identifier = var.vpc.private_subnets
+  target_group_arns   = module.alb.target_group_arns
 
   launch_template {
     id      = aws_launch_template.web.id
