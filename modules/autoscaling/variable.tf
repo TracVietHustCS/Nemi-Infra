@@ -15,7 +15,6 @@ variable "db_config" {
     {
       user     = string
       password = string
-      database = string
       hostname = string
       port     = string
     }

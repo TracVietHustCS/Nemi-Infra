@@ -1,3 +1,5 @@
+data "aws_availability_zones" "available" {}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.12.0"
@@ -33,7 +35,7 @@ module "web_sg" {
   ingress_rules = [
     {
       port        = 80
-      security_groups = [module.lb_sg.security_group.id]
+      security_groups = [module.alb_sg.security_group.id]
     }
   ]
 }
