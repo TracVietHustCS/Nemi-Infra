@@ -2,6 +2,10 @@
 
 This repository contains infrastructure configuration for a demo AWS architecture using EC2, RDS, and Auto Scaling within a VPC. This setup includes both public and private subnets, load balancer, internet gateway, and security considerations.
 
+
+<img width="482" alt="image" src="https://github.com/user-attachments/assets/cabf66b7-c32f-4ba4-af2f-e0d19104df4d" />
+
+
 ---
 
 ## 🏗 Architecture Overview
@@ -38,3 +42,89 @@ Clone this repository:
 ```bash
 git clone https://github.com/your-username/nemi-demo-infra.git
 cd nemi-demo-infra
+terraform init  
+terraform apply
+ <!-- when you first apply the resources,in the folder .terraform/netowrking.., these will be file that has unexpected variable, just track the error log, delete it and apply again -->
+terraform destroy -- to destroy infra
+```
+## Dev/test enviroment
+
+Got it! Here’s the **Dev/Test Environment** section written with Terraform context in mind, in English, that you can add to your Markdown file:
+
+````md
+---
+
+## 🧪 Dev/Test Environment (Terraform)
+
+To test in a development environment using Terraform, follow these steps:
+
+1. **Enable DNS Hostnames and DNS Resolution for the VPC**
+
+```hcl
+resource "aws_vpc" "main" {
+  # ... existing config ...
+
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+}
+````
+
+2. **Place RDS and EC2 instances in Public Subnets** (for dev/testing only)
+
+Make sure your Terraform subnet resources for dev/test include public subnets, e.g.:
+
+```hcl
+resource "aws_subnet" "public" {
+  cidr_block = "10.0.4.0/24"
+  vpc_id     = aws_vpc.main.id
+  map_public_ip_on_launch = true
+  # ... other settings ...
+}
+```
+
+Update EC2 and RDS resources to use these public subnets.
+
+3. **Enable Public Access on RDS**
+
+Add or modify your RDS resource like this:
+
+```hcl
+resource "aws_db_instance" "example" {
+  # ... existing config ...
+
+  publicly_accessible = true
+  # ensure security groups allow inbound access on DB port
+}
+```
+
+4. **Add Inbound Security Group Rules**
+
+Example to allow SSH and database access from your IP:
+
+```hcl
+resource "aws_security_group_rule" "allow_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["YOUR.IP.ADDRESS/32"]
+  security_group_id = aws_security_group.ec2.id
+}
+
+resource "aws_security_group_rule" "allow_db_access" {
+  type              = "ingress"
+  from_port         = 3306 # or 5432 for PostgreSQL
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.rds.id
+  source_security_group_id = aws_security_group.ec2.id
+}
+```
+or add in the console
+finally, try to ssh in the instance
+
+![Screenshot 2025-05-25 170837](https://github.com/user-attachments/assets/23f562cb-8e0b-49c9-8344-e26eacee3476)
+5. **Important Notes**
+
+* Use these changes **only in development or test environments**.
+* Revert to private subnets and disable public access in production.
