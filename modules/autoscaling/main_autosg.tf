@@ -18,6 +18,7 @@ resource "aws_launch_template" "web" {
   name_prefix   = "web-"
   image_id      = data.aws_ami.ami.id
   instance_type = "t2.micro"
+  key_name = "nemikey" 
 
   vpc_security_group_ids = [var.sg.web]
 
@@ -57,7 +58,9 @@ resource "aws_autoscaling_group" "web" {
   name                = "${var.project}-asg"
   min_size            = 1
   max_size            = 3
-  vpc_zone_identifier = var.vpc.private_subnets
+  desired_capacity    = 1 
+  
+  vpc_zone_identifier = var.vpc.public_subnet
   target_group_arns   = module.alb.target_group_arns
 
   launch_template {

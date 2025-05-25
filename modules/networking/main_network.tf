@@ -15,6 +15,8 @@ module "vpc" {
   create_database_subnet_group = true
   enable_nat_gateway           = true
   single_nat_gateway           = true
+  
+
 }
 
 // sg for lb, web, and db
@@ -46,8 +48,13 @@ module "db_sg" {
   ingress_rules = [
     {
       port            = 5432
-      security_groups = [module.web_sg.security_group.id]
-    }
+      security_groups = [module.web_sg.security_group.id],
+      }
+    #   ,
+    #   {
+    #   port         = 5432
+    #   cidr_blocks  = ["42.118.50.46/32"] 
+    # }
   ]
 }
 
