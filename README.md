@@ -44,12 +44,13 @@ git clone https://github.com/your-username/nemi-demo-infra.git
 cd nemi-demo-infra
 terraform init  
 terraform apply
- <!-- when you first apply the resources,in the folder .terraform/netowrking.., these will be file that has unexpected variable, just track the error log, delete it and apply again -->
+ <!-- when you first apply the resources,in the folder .terraform/netowrking..,
+ these will be file that has unexpected variable, just track the error log, delete it and apply again -->
 terraform destroy -- to destroy infra
 ```
 ## Dev/test enviroment
 
-Got it! Here’s the **Dev/Test Environment** section written with Terraform context in mind, in English, that you can add to your Markdown file:
+
 
 ````md
 ---
