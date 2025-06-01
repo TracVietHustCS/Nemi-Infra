@@ -1,3 +1,6 @@
+check mt gitlab: this is ass
+
+
 # Nemi Demo Infrastructure
 
 This repository contains infrastructure configuration for a demo AWS architecture using EC2, RDS, and Auto Scaling within a VPC. This setup includes both public and private subnets, load balancer, internet gateway, and security considerations.
