@@ -122,14 +122,16 @@
     http://<EC2_PUBLIC_IP>:<PORT>
     ```
 
-![image](https://github.com/user-attachments/assets/2469f71f-08d0-4869-becd-bf9a59856d7c)
+![image](https://github.com/user-attachments/assets/7652f8f0-0744-4901-9b11-be18e2d23cc6)
+
 
 
   - Through the **Application Load Balancer DNS**
     ```
     http://<ALB_DNS_NAME>
     ```
- ![image](https://github.com/user-attachments/assets/007f5db9-8ac9-4ea8-9635-d43473e82a15)
+![image](https://github.com/user-attachments/assets/39fa29d8-a8ff-4dcf-bf9a-953d71f7a04d)
+
 
 
 
@@ -155,7 +157,8 @@
     - Enter your domain name (e.g., `test.fbnemi.xyz`)
     - Choose **DNS Validation**
 
-![image](https://github.com/user-attachments/assets/9621c55c-3a6e-45b3-8cc2-84d6dcb19531)
+![image](https://github.com/user-attachments/assets/8e05b963-d7f8-4903-bfdf-3e8cfc79a6bb)
+
 
 
   2. **Add the CNAME Record to Hosted Zone**
@@ -189,7 +192,8 @@
   https://test.fbnemi.xyz
   ```
 
- ![image](https://github.com/user-attachments/assets/f6ef917f-faff-42ee-b1d0-faeda3f3d00f)
+![image](https://github.com/user-attachments/assets/5a9d0cde-8eb9-4a05-b333-5cebdedf7350)
+
 
 
   Make sure to test and confirm that the certificate is active and the app loads correctly over HTTPS.
