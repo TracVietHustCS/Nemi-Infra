@@ -191,6 +191,8 @@ To secure your API with HTTPS, follow these steps to configure SSL using AWS Cer
    - After submitting the request, ACM will provide a **CNAME record**
    - Go to **Route 53 → Hosted Zone**
    - Create a **CNAME record** exactly as specified by ACM
+   - OR you can click add to route 53 button in the console of the cname 
+   
    - Wait until the certificate status in ACM becomes **Issued**
 
 3. **Add HTTPS Listener to ALB**
