@@ -222,3 +222,82 @@ https://test.fbnemi.xyz
 ![image](https://github.com/user-attachments/assets/5a9d0cde-8eb9-4a05-b333-5cebdedf7350)
 
 Make sure to test and confirm that the certificate is active and the app loads correctly over HTTPS.
+
+
+### 🛠 Enhanced IAM Instance Profile
+this add IAM role to ec2 so i can access paramer in aws system manager
+```terraform
+module "iam_instance_profile" {
+  source  = "terraform-in-action/iip/aws"
+  actions = [
+    "logs:*", 
+    "rds:*",
+    "ssm:GetParameter",
+    "ssm:GetParameters",
+    "ssm:GetParametersByPath",
+    "kms:Decrypt"
+  ]  
+}
+```
+
+
+Here's a step-by-step guide to create a parameter in AWS Systems Manager (SSM) Parameter Store via the AWS Console:
+
+### **Step-by-Step: Creating a Parameter in AWS Console**
+
+#### **1. Open AWS Systems Manager**
+- Log in to your **AWS Management Console**
+- Navigate to **Systems Manager** (you can search for it in the services search bar)
+
+#### **2. Go to Parameter Store**
+- In the left sidebar, under **"Application Management"**, click **"Parameter Store"**
+
+#### **3. Create a New Parameter**
+- Click the **"Create parameter"** button at the top right
+- <img width="861" alt="image" src="https://github.com/user-attachments/assets/0224617a-5021-4308-a58a-abb699beda8f" />
+
+
+#### **4. Fill in Parameter Details**
+| Field | Value | Notes |
+|--------|--------|--------|
+| **Name** | `/app/env/parameter_name` (e.g., `/app/prod/db_password`) | Use a hierarchical path for better organization |
+| **Description** | (Optional) e.g., "Database password for production" | Helps identify the parameter later |
+| **Tier** | `Standard` (default) or `Advanced` (if > 4KB) | Advanced supports larger parameters |
+| **Type** | `String`, `StringList`, or `SecureString` | Use **SecureString** for sensitive data (like passwords) |
+| **KMS Key Source** | (If SecureString) Choose `AWS managed key (default)` or your own KMS key | For encryption |
+| **Value** | The actual value (e.g., `MySecretPassword123!`) | For SecureString, this will be encrypted |
+
+#### **5. (Optional) Add Tags**
+- You can add tags (e.g., `Environment=Prod`, `Team=DevOps`) for better tracking.
+
+#### **6. Create the Parameter**
+- Click **"Create parameter"** at the bottom.
+
+---
+
+### **How to Retrieve the Parameter in AWS CLI**
+To fetch the parameter (e.g., in a startup script or Terraform):
+```bash
+# For plain String/StringList
+aws ssm get-parameter --name "/app/prod/db_password" --query Parameter.Value --output text
+
+# For SecureString (decrypts the value)
+aws ssm get-parameter --name "/app/prod/db_password" --with-decryption --query Parameter.Value --output text
+```
+
+---
+
+### **Best Practices**
+✔ **Use hierarchical names** (e.g., `/app/prod/db_password`) for easy management.  
+✔ **Restrict IAM access** to parameters using least-privilege policies.  
+✔ **Use SecureString for secrets** (passwords, API keys).  
+✔ **Rotate secrets regularly** (integrate with AWS Secrets Manager if needed).  
+
+---
+
+### **Screenshot Guide**
+[INSERT SCREENSHOT OF PARAMETER STORE CONSOLE HERE]  
+[INSERT SCREENSHOT OF CREATE PARAMETER FORM HERE]  
+
+
+
