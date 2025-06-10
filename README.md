@@ -239,6 +239,15 @@ module "iam_instance_profile" {
   ]  
 }
 ```
+also auto crat database password(secure string) when creat infra
+```
+resource "aws_ssm_parameter" "my_secret" {
+  name        = "/myapp/prod/db_password"  
+  description = "Database password"
+  type        = "SecureString"             
+  value       = module.database.password           
+}
+```
 
 
 Here's a step-by-step guide to create a parameter in AWS Systems Manager (SSM) Parameter Store via the AWS Console:
@@ -295,9 +304,6 @@ aws ssm get-parameter --name "/app/prod/db_password" --with-decryption --query P
 
 ---
 
-### **Screenshot Guide**
-[INSERT SCREENSHOT OF PARAMETER STORE CONSOLE HERE]  
-[INSERT SCREENSHOT OF CREATE PARAMETER FORM HERE]  
 
 
 
