@@ -252,8 +252,6 @@ resource "aws_ssm_parameter" "my_secret" {
 
 Here's a step-by-step guide to create a parameter in AWS Systems Manager (SSM) Parameter Store via the AWS Console:
 
-### **Step-by-Step: Creating a Parameter in AWS Console**
-
 #### **1. Open AWS Systems Manager**
 - Log in to your **AWS Management Console**
 - Navigate to **Systems Manager** (you can search for it in the services search bar)
