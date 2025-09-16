@@ -485,6 +485,6 @@ For production issues or security concerns:
 
 ### 🌟 Star this repository if it helped you!
 
-**Made with ❤️ by the Nemi Infrastructure Team**
+**Made the Nemi Infrastructure Team**
 
 </div>
